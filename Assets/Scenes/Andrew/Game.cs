@@ -7,15 +7,17 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public float holep;
-    public int w, h, x, y;
+    public int w, h, x, y, lvlCount;
     public bool[,] hwalls, vwalls;
-    public Transform Level, Player, Goal;
+    public Transform Level, Player, Goal, Enemy;
     public GameObject Floor, Wall;
     public CinemachineVirtualCamera cam;
     Animator anim;
 
     void Start()
     {
+
+        lvlCount++;
 
         foreach (Transform child in Level)
             Destroy(child.gameObject);
@@ -47,10 +49,25 @@ public class Game : MonoBehaviour
         }
         dfs(0, 0);
 
-        // force walls over floors
+        x = Random.Range(0, w);
+        y = Random.Range(0, h);
+        Player.position = new Vector3(x, y);
+        do Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
+        while (Vector3.Distance(Player.position, Goal.position) < (w + h) / 4);
+        cam.m_Lens.OrthographicSize = Mathf.Pow(w / 3 + h / 2, 0.7f) + 1;
+
+
+        AddEnemies();
+
+        fixZPositions();
+    }
+
+
+    void fixZPositions(){
+        // force objects over floors
         foreach (Transform child in Level) {
             var tempPos = child.transform.position;
-            if(child.name.Contains("wall")){
+            if(child.name.Contains("wall") || child.name.Contains("enemy")){
                 tempPos.z = -1;
             }
             if(child.name.Contains("floor")){
@@ -58,13 +75,56 @@ public class Game : MonoBehaviour
             }
             child.transform.position = tempPos;
         }
+    }
 
-        x = Random.Range(0, w);
-        y = Random.Range(0, h);
-        Player.position = new Vector3(x, y);
-        do Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
-        while (Vector3.Distance(Player.position, Goal.position) < (w + h) / 4);
-        cam.m_Lens.OrthographicSize = Mathf.Pow(w / 3 + h / 2, 0.7f) + 1;
+    void AddEnemies(){
+        var nmeMin = lvlCount/5 > 1 ? lvlCount/5 : 1;
+        var nmeMax = (h*w)/4;
+        var numOfEnemies = Random.Range(nmeMin, nmeMax);
+        List<Transform> avoids = new List<Transform>{Player};
+        while(numOfEnemies > 0){
+            var nmeV3 = getRandPosition(avoids);
+            var newNme = Instantiate(Enemy, nmeV3, Quaternion.identity, Level);
+            avoids.Add(newNme.transform);
+            numOfEnemies--;
+        }
+    }
+
+    Vector3 getRandPosition(List<Transform> avoidObjects) {
+
+        var randX = 0;
+        var randY = 0;
+
+        do{
+            randX = Random.Range(0, w);
+            randY = Random.Range(0, h);
+        } while (!canSpawn(randX, randY, avoidObjects));
+
+        return new Vector3(randX, randY);
+
+    }
+
+    bool canSpawn(int testX, int testY, List<Transform> avoidObjects){
+
+        bool canSpawn = true;
+        int variance = 1;
+
+        foreach (var item in avoidObjects)
+        {
+            if (
+                item.position.x == testX && item.position.y == testY ||
+                item.position.x == testX+variance && item.position.y == testY ||
+                item.position.x == testX-variance && item.position.y == testY ||
+                item.position.x == testX && item.position.y == testY+variance ||
+                item.position.x == testX && item.position.y == testY-variance
+            ) {
+                canSpawn = false;
+                break;
+            }   
+        }
+
+        return canSpawn;
+
     }
 
     void Update()
