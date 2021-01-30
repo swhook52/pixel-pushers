@@ -13,10 +13,10 @@ public class Game : MonoBehaviour
     public GameObject Floor, Wall;
     public CinemachineVirtualCamera cam;
     Animator anim;
+    private PanelScript keypad;
 
     void Start()
     {
-
         foreach (Transform child in Level)
             Destroy(child.gameObject);
 
@@ -68,6 +68,11 @@ public class Game : MonoBehaviour
         //    cam.m_Lens.OrthographicSize = Mathf.Pow(w / 3 + h / 2, 0.7f) + 1;
     }
 
+    void Awake() {
+        keypad = GetComponent<PanelScript>();
+        keypad.SetInactive();
+    }
+
     public void GenerateMaze()
     {
         if (Random.Range(0, 5) < 3)
@@ -79,6 +84,14 @@ public class Game : MonoBehaviour
             h++;
         }
         Start();
+    }
+
+    public void DisplayKeypad() {
+        keypad.SetActive();
+    }
+
+    public void RemoveKeypad() {
+        keypad.SetInactive();
     }
 
     void Update()

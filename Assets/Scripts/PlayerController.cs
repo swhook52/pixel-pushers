@@ -89,8 +89,15 @@ public class PlayerController : MonoBehaviour
     {
         if(GameManager != null)
         {
-            GameManager.GenerateMaze();
+            //Launch keypad
+            GameManager.DisplayKeypad();
         }
-        
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(GameManager != null)
+        {
+            GameManager.RemoveKeypad();
+        }
     }
 }

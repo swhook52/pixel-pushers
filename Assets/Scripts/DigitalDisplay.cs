@@ -10,6 +10,7 @@ public class DigitalDisplay : MonoBehaviour
     [SerializeField]
     private Image[] characters;
     private string codeSequence;
+    public Game GameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -100,10 +101,10 @@ public class DigitalDisplay : MonoBehaviour
 
     private void CheckResults() {
         if (codeSequence == "8888") {
-            Debug.Log("Correct");
+            ResetDisplay();
+            GameManager.GenerateMaze();
         }
         else {
-            Debug.Log("Wrong");
             ResetDisplay();
         }
     }
