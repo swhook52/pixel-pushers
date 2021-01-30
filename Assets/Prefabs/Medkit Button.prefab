@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3945403678903571272}
   - component: {fileID: 3945403678903571275}
   - component: {fileID: 3945403678903571274}
-  - component: {fileID: 8064036531448055402}
+  - component: {fileID: -2822585926332100115}
   m_Layer: 5
   m_Name: Medkit Button
   m_TagString: Untagged
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8064036531448055402
+--- !u!114 &-2822585926332100115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
