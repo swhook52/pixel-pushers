@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
- 
+
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
@@ -20,11 +20,13 @@ public class PlayerController : MonoBehaviour
     public string WallTag = "Wall";
     public Transform GunTip;
     public Game GameManager;
+    public GameObject bulletPrefab;
 
     void Awake()
     {
         controls = new Player1Controls();
         controls.Player.Look.performed += Aim;
+        controls.Player.Fire.performed += Fire;
     }
 
     void Start()
@@ -49,13 +51,13 @@ public class PlayerController : MonoBehaviour
             worldLookLocation = new Vector3(raycastHit.point.x, raycastHit.point.y, 0);
         }
     }
- 
+
     private void OnEnable()
     {
         controls.Player.Enable();
     }
     private void OnDisable()
-    {    
+    {
         controls.Player.Disable();
     }
 
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
-  
+
     void FixedUpdate()
     {
         Vector3 movement = new Vector2(movementX, movementY);
@@ -81,13 +83,13 @@ public class PlayerController : MonoBehaviour
         // Handle Rotation
         Vector2 direction = worldLookLocation - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        var rotation = Quaternion.Euler (new Vector3 (0, 0, angle));
+        var rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         transform.rotation = rotation;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(GameManager != null)
+        if (GameManager != null)
         {
             //Launch keypad
             GameManager.DisplayKeypad();
@@ -99,5 +101,13 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.RemoveKeypad();
         }
+    }
+
+    private void Fire(InputAction.CallbackContext context)
+    {
+        Vector2 direction = worldLookLocation - transform.position;
+
+        GameObject go = Instantiate(bulletPrefab, GunTip.position, transform.rotation);
+        go.GetComponent<Rigidbody2D>().velocity = direction * 2;
     }
 }
