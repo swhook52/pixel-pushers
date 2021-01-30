@@ -47,6 +47,18 @@ public class Game : MonoBehaviour
         }
         dfs(0, 0);
 
+        // force walls over floors
+        foreach (Transform child in Level) {
+            var tempPos = child.transform.position;
+            if(child.name.Contains("wall")){
+                tempPos.z = -1;
+            }
+            if(child.name.Contains("floor")){
+                tempPos.z = 0;
+            }
+            child.transform.position = tempPos;
+        }
+
         x = Random.Range(0, w);
         y = Random.Range(0, h);
         Player.position = new Vector3(x, y);
