@@ -12,16 +12,10 @@ public class Game : MonoBehaviour
     public Transform Level, Player, Goal;
     public GameObject Floor, Wall;
     public CinemachineVirtualCamera cam;
-    public Vector3 tempScale;
-    List<string> floors = new List<string>();
     Animator anim;
 
     void Start()
     {
-
-        if(floors.Count > 0){
-            floors.Clear();
-        }
 
         foreach (Transform child in Level)
             Destroy(child.gameObject);
@@ -33,10 +27,7 @@ public class Game : MonoBehaviour
         void dfs(int x, int y)
         {
             st[x, y] = 1;
-
-            if(!floors.Contains(x+"|"+y)){
-                floors.Add(x+"|"+y);
-            }
+            Instantiate(Floor, new Vector3(x, y), Quaternion.identity, Level);
 
             var dirs = new[]
             {
@@ -56,31 +47,6 @@ public class Game : MonoBehaviour
         }
         dfs(0, 0);
 
-        foreach (var floor in floors)
-        {
-            var floorX = float.Parse(floor.Split('|')[0]);
-            var floorY = float.Parse(floor.Split('|')[1]);
-            Instantiate(Floor, new Vector3(floorX, floorY), Quaternion.identity, Level);
-        }
-
-        foreach (Transform child in Level) {
-
-            if (child.gameObject.name.Contains("wall")) { 
-                //var tempPos = child.transform.position;
-                //tempPos.z = 1;
-                //child.transform.position = tempPos;
-                child.transform.SetSiblingIndex(1);
-            }
-
-            if (child.gameObject.name.Contains("floor")) { 
-                //var tempPos = child.transform.position;
-                //tempPos.z = 0;
-                //child.transform.position = tempPos;
-                child.transform.SetSiblingIndex(2);
-            }
-
-        }
-
         x = Random.Range(0, w);
         y = Random.Range(0, h);
         Player.position = new Vector3(x, y);
@@ -91,7 +57,6 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        anim = Player.GetComponent<Animator>();
 
         var dirs = new[]
         {
@@ -101,44 +66,38 @@ public class Game : MonoBehaviour
             (x, y + 1, vwalls, x, y + 1, Vector3.up, 0, KeyCode.W),
         };
         var rand = Random.value;
-        foreach (var (nx, ny, wall, wx, wy, sh, ang, k) in dirs.OrderBy(d => rand))
-            if (Input.GetKey(k))
+        foreach (var (nx, ny, wall, wx, wy, sh, ang, k) in dirs.OrderBy(d => rand)){
+            if (Input.GetKeyDown(k)){
                 if (wall[wx, wy]){
                     Player.position = Vector3.Lerp(Player.position, new Vector3(nx, ny), 0.1f);
-                } else {(x, y) = (nx, ny); }
-
-        if(Input.GetKeyDown(KeyCode.A)){
-            tempScale = Player.transform.localScale;
-            tempScale.x = -1;
-            Player.transform.localScale = tempScale;
+                } else {
+                    (x, y) = (nx, ny);
+                }
+            }
         }
 
-        if(Input.GetKeyDown(KeyCode.D)){
-            tempScale = Player.transform.localScale;
-            tempScale.x = 1;
-            Player.transform.localScale = tempScale;
-        }
+        UpdateCharacterAnimation(Player.GetComponent<Animator>());
 
-        // START animatin / key pressed
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)){
-            anim.SetBool("isWalking", true);
-        } else {
-            anim.SetBool("isWalking", false);
-        }
-
-        if (Input.GetKey(KeyCode.Mouse0)){
-            anim.SetBool("isShooting", true);
-        } else {
-            anim.SetBool("isShooting", false);
-        }
-        // END animatin / key pressed
-
-        //Player.position = Vector3.Lerp(Player.position, new Vector3(x, y), Time.deltaTime * 12);
+        Player.position = Vector3.Lerp(Player.position, new Vector3(x, y), Time.deltaTime * 12);
         if (Vector3.Distance(Player.position, Goal.position) < 0.12f && Input.GetKeyDown(KeyCode.F))
         {
             if (Random.Range(0, 5) < 3) w++;
             else h++;
             Start();
         }
+    }
+
+    void UpdateCharacterAnimation(Animator anim) {
+
+        //flip char horizontal if left/right direction
+        Vector3 tempScale = Player.transform.localScale;
+        if(Input.GetKeyDown(KeyCode.A)){ tempScale.x = -1; }
+        if(Input.GetKeyDown(KeyCode.D)){ tempScale.x = 1; }
+        Player.transform.localScale = tempScale;
+
+        //Update animation on key press
+        anim.SetBool("isWalking", (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)));
+        anim.SetBool("isShooting", Input.GetKey(KeyCode.Mouse0));
+
     }
 }
