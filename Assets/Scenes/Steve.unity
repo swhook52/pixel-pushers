@@ -1011,6 +1011,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   maxVelocity: 20
+  AimWidth: 0.1
+  AimLength: 20
+  WallTag: Wall
+  GunTip: {fileID: 291911555}
 --- !u!50 &1828906985
 Rigidbody2D:
   serializedVersion: 4
