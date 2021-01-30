@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3945403678903571272}
   - component: {fileID: 3945403678903571275}
   - component: {fileID: 3945403678903571274}
+  - component: {fileID: 8064036531448055402}
   m_Layer: 5
   m_Name: Medkit Button
   m_TagString: Untagged
@@ -120,3 +121,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8064036531448055402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945403678903571284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7c2d53fb1ff2546a0892337dd98e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4925890424342894799, guid: 216c68bb9f1f30344870ebf83a1400ec, type: 3}
