@@ -371,6 +371,10 @@ PrefabInstance:
       propertyPath: maxVelocity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2081277869179744514, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3764538273728285838, guid: 0aa4d62fa8e191147bea73b7a8585866, type: 3}
     - target: {fileID: 2081277869179744518, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
       propertyPath: m_RootOrder
       value: 3
