@@ -1,15 +1,17 @@
 using Cinemachine;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
     public float holep;
-    public int w, h, x, y;
+    public int w, h, x, y, lvlCount;
     public bool[,] hwalls, vwalls;
     public Transform Level;
-    //public Transform Player;
+    public Transform Player;
     public Transform Goal;
+    public Transform Enemy;
     public GameObject Floor, Wall;
     public CinemachineVirtualCamera cam;
     Animator anim;
@@ -17,6 +19,8 @@ public class Game : MonoBehaviour
 
     void Start()
     {
+        lvlCount++;
+
         foreach (Transform child in Level)
             Destroy(child.gameObject);
 
@@ -61,11 +65,10 @@ public class Game : MonoBehaviour
 
         x = Random.Range(0, w);
         y = Random.Range(0, h);
-        //Player.position = new Vector3(x, y);
         Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
-        //do Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
-        //while (Vector3.Distance(Player.position, Goal.position) < (w + h) / 4);
-        //    cam.m_Lens.OrthographicSize = Mathf.Pow(w / 3 + h / 2, 0.7f) + 1;
+
+        AddEnemies();
+        fixZPositions();
     }
 
     void Awake() {
@@ -136,4 +139,78 @@ public class Game : MonoBehaviour
     //    anim.SetBool("isShooting", Input.GetKey(KeyCode.Mouse0));
 
     //}
+
+    void fixZPositions()
+    {
+        // force objects over floors
+        foreach (Transform child in Level)
+        {
+            var tempPos = child.transform.position;
+            if (child.name.Contains("wall") || child.name.Contains("enemy"))
+            {
+                tempPos.z = -1;
+            }
+            if (child.name.Contains("floor"))
+            {
+                tempPos.z = 0;
+            }
+            child.transform.position = tempPos;
+        }
+    }
+
+    void AddEnemies()
+    {
+        var nmeMin = lvlCount / 5 > 1 ? lvlCount / 5 : 1;
+        var nmeMax = (h * w) / 4;
+        var numOfEnemies = Random.Range(nmeMin, nmeMax);
+        List<Transform> avoids = new List<Transform> { Player, Goal };
+        while (numOfEnemies > 0)
+        {
+            var nmeV3 = getRandPosition(avoids);
+            var newNme = Instantiate(Enemy, nmeV3, Quaternion.identity, Level);
+            avoids.Add(newNme.transform);
+            numOfEnemies--;
+        }
+    }
+
+    Vector3 getRandPosition(List<Transform> avoidObjects)
+    {
+
+        var randX = 0;
+        var randY = 0;
+
+        do
+        {
+            randX = Random.Range(0, w);
+            randY = Random.Range(0, h);
+        } while (!canSpawn(randX, randY, avoidObjects));
+
+        return new Vector3(randX, randY);
+
+    }
+
+    bool canSpawn(int testX, int testY, List<Transform> avoidObjects)
+    {
+
+        bool canSpawn = true;
+        int variance = 1;
+
+        foreach (var item in avoidObjects)
+        {
+            if (
+                item.position.x == testX && item.position.y == testY ||
+                item.position.x == testX + variance && item.position.y == testY ||
+                item.position.x == testX - variance && item.position.y == testY ||
+                item.position.x == testX && item.position.y == testY + variance ||
+                item.position.x == testX && item.position.y == testY - variance
+            )
+            {
+                canSpawn = false;
+                break;
+            }
+        }
+
+        return canSpawn;
+
+    }
 }

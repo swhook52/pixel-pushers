@@ -636,8 +636,11 @@ MonoBehaviour:
   h: 3
   x: 0
   y: 0
+  lvlCount: 0
   Level: {fileID: 819823214}
+  Player: {fileID: 0}
   Goal: {fileID: 162632940}
+  Enemy: {fileID: 0}
   Floor: {fileID: 9144178562977641552, guid: 661ec4c0bd89a9349b50db7edf208c58, type: 3}
   Wall: {fileID: 7378635463862705080, guid: a2e22679a19051547a29e2d19b9708c6, type: 3}
   cam: {fileID: 2113303101}
