@@ -43,12 +43,12 @@ public class PlayerController : MonoBehaviour
         var ray = new Ray2D(this.transform.position, direction);
         Debug.DrawRay(ray.origin, ray.direction, Color.red, 3, false);
 
-        RaycastHit2D raycastHit = Physics2D.Raycast(GunTip.position, Vector2.right, Mathf.Infinity, LayerMask.NameToLayer("Wall"));
+        RaycastHit2D raycastHit = Physics2D.Raycast(GunTip.position, direction, Mathf.Infinity);
         Debug.Log(raycastHit);
         if (raycastHit.rigidbody != null)
         {
             //Debug.Log(raycastHit.rigidbody.name);
-            //worldLookLocation = new Vector3(raycastHit.point.x, raycastHit.point.y, 0);
+            worldLookLocation = new Vector3(raycastHit.point.x, raycastHit.point.y, 0);
         }
         else
         {
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Aim Sight
-        laserLineRenderer.SetPosition(0, this.transform.position);
+        laserLineRenderer.SetPosition(0, GunTip.position);
         laserLineRenderer.SetPosition(1, new Vector3(worldLookLocation.x, worldLookLocation.y, 0));
 
         // Handle Rotation
