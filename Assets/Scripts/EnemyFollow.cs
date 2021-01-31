@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public float speed;
+    public float speed = 0.2f;
     public float stoppingDistance;
     public Transform target;
 

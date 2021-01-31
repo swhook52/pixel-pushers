@@ -43,9 +43,8 @@ public class PlayerController : MonoBehaviour
         worldLookLocation = Camera.main.ScreenToWorldPoint(lookInput);
 
         Vector2 direction = worldLookLocation - transform.position;
-        var ray = new Ray2D(this.transform.position, direction);
 
-        RaycastHit2D raycastHit = Physics2D.Raycast(GunTip.position, direction, Mathf.Infinity);
+        RaycastHit2D raycastHit = Physics2D.Raycast(GunTip.position, direction, Mathf.Infinity, LayerMask.GetMask("Wall"));
         if (raycastHit.rigidbody != null)
         {
             worldLookLocation = new Vector3(raycastHit.point.x, raycastHit.point.y, 0);

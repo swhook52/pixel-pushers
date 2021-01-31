@@ -119,11 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7de10a384d7f0d41a5ffd9e68cff501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 0.2
   stoppingDistance: 0
   target: {fileID: 0}
-  enemyHealth: 1
-  enemyDamage: 1
 --- !u!1 &7967221364226274728
 GameObject:
   m_ObjectHideFlags: 0
