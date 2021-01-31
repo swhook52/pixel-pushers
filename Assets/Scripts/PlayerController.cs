@@ -91,7 +91,8 @@ public class PlayerController : MonoBehaviour
         //UpdateCharacterAnimation(playerAnimator);
     }
 
-    void UpdateCharacterAnimation(Animator anim) {
+    void UpdateCharacterAnimation(Animator anim)
+    {
 
         // Update animation on key press
         anim.SetFloat("velocity", Math.Abs(rigidBody.velocity.x) + Math.Abs(rigidBody.velocity.y));
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        SoundManager.PlaySound("pew");
+        SoundManager.PlaySound("gunshot");
         ShakeCamera.Instance.Shake(2f, 0.05f);
 
         Vector2 direction = worldLookLocation - transform.position;
