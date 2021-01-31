@@ -49,6 +49,13 @@ public class PlayerController : MonoBehaviour
         //laserLineRenderer.endWidth = AimWidth;
     }
 
+    public void RemoveHealth(int damage) {
+        if (currentHealth > 0) {
+            currentHealth -= damage;
+            Debug.Log(currentHealth);
+        }
+    }
+
     private void Aim(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
