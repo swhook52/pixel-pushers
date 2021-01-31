@@ -16,17 +16,19 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(attack) {
+        if (attack)
+        {
             anim.SetTrigger("hit");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {    
+    {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.PlaySound("herg");
             attack = true;
-        }  
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -35,6 +37,6 @@ public class EnemyAttack : MonoBehaviour
         {
             attack = false;
             anim.SetBool("isWalking", true);
-        }  
+        }
     }
 }
