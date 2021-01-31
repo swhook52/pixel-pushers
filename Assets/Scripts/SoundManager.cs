@@ -17,7 +17,6 @@ public class SoundManager : MonoBehaviour
     {
         llamaSound = Resources.Load<AudioClip>("llama");
         pewSound = Resources.Load<AudioClip>("pew");
-        goalAchievedSound = Resources.Load<AudioClip>("");
         enemyDeathSound = Resources.Load<AudioClip>("blahDeath");
         powSound = Resources.Load<AudioClip>("pow");
         hergSound = Resources.Load<AudioClip>("herg");
