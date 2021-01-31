@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3945403678903571275}
   - component: {fileID: 3945403678903571274}
   - component: {fileID: -2822585926332100115}
-  - component: {fileID: -5121894722852395089}
   m_Layer: 5
   m_Name: Medkit Button
   m_TagString: Untagged
@@ -31,8 +30,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6912864078288433096}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -62,14 +60,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.03818085, b: 0.06728651, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c2c68469f1438db4498c4c61e644a3fe, type: 3}
+  m_Sprite: {fileID: 7468057293271108204, guid: e1290381470ca2c4abdda3998cfc67bb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -122,19 +120,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3945403678903571275}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6847986973408916617}
-        m_TargetAssemblyTypeName: UseMedkit, Assembly-CSharp
-        m_MethodName: Heal
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &-2822585926332100115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,95 +134,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 4925890424342894799, guid: 216c68bb9f1f30344870ebf83a1400ec, type: 3}
-  distanceFromPlayer: 0.2
---- !u!114 &-5121894722852395089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3945403678903571284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7963ee91b425147a6e5aab4519033f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 4925890424342894799, guid: 216c68bb9f1f30344870ebf83a1400ec, type: 3}
-  medkitHealing: 15
---- !u!1001 &5180030855260011402
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3945403678903571285}
-    m_Modifications:
-    - target: {fileID: 1434774770158812873, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_Name
-      value: UseHeal
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 222.59949
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -23.86554
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10067.337
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1795745759096704771, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-      propertyPath: item
-      value: 
-      objectReference: {fileID: 4925890424342894799, guid: 216c68bb9f1f30344870ebf83a1400ec, type: 3}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
---- !u!4 &6912864078288433096 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1732838979661026370, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-  m_PrefabInstance: {fileID: 5180030855260011402}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6847986973408916617 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1795745759096704771, guid: bbd756a3f0601c54b8fc979ff4f3e74e, type: 3}
-  m_PrefabInstance: {fileID: 5180030855260011402}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7963ee91b425147a6e5aab4519033f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

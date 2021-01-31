@@ -6,7 +6,7 @@ public class DropItem : MonoBehaviour
 {
     public GameObject item;
     private Transform player;
-    public float distanceFromPlayer = 0.2f;
+    //private int distanceFromPlayer = 1;
 
     public void Start()
     {
@@ -15,7 +15,7 @@ public class DropItem : MonoBehaviour
 
     public void SpawnDroppedItem()
     {
-        Vector2 playerPosition = new Vector2(player.position.x, player.position.y + distanceFromPlayer);
+        Vector2 playerPosition = new Vector2(player.position.x, player.position.y + 0.35f);
         Instantiate(item, playerPosition, Quaternion.identity);
     }
 }

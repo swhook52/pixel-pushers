@@ -34,7 +34,7 @@ public class Slot : MonoBehaviour
 
     public void Heal()
     {
-        if (playerController.currentHealth != playerController.startingHealth && playerController.currentHealth >= (playerController.startingHealth - medkitHealing))
+        if (playerController.currentHealth >= (playerController.startingHealth - medkitHealing))
         {
             playerController.currentHealth = playerController.startingHealth;
 
