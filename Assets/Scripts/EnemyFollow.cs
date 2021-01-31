@@ -9,8 +9,7 @@ public class EnemyFollow : MonoBehaviour
     Animator anim;
     bool attack;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();
     }

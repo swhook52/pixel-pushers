@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     public int currentHealth = 25;
     public Animator playerAnimator;
     public bool IsMoving = false;
+    private float rateOfFire = 1.0f;
+    private float nextFire = -1f;
+    private bool canFire = true;
 
     void Awake()
     {
@@ -44,6 +47,12 @@ public class PlayerController : MonoBehaviour
         //laserLineRenderer = GetComponent<LineRenderer>();
         //laserLineRenderer.startWidth = AimWidth;
         //laserLineRenderer.endWidth = AimWidth;
+    }
+
+    public void RemoveHealth(int damage) {
+        if (currentHealth > 0) {
+            currentHealth -= damage;
+        }
     }
 
     private void Aim(InputAction.CallbackContext context)
@@ -102,10 +111,20 @@ public class PlayerController : MonoBehaviour
 
         float gunLightRange = Vector2.Distance(rigidBody.position, worldLookLocation);
 
-        if(gunLight) { gunLight.pointLightOuterRadius = gunLightRange; }
+        if (gunLight) { gunLight.pointLightOuterRadius = gunLightRange; }
 
 
         UpdateCharacterAnimation(playerAnimator);
+
+        if (nextFire > 0)
+        {
+            nextFire -= Time.deltaTime;
+            canFire = false;
+        }
+        else
+        {
+            canFire = true;
+        }
     }
 
     void UpdateCharacterAnimation(Animator anim)
@@ -143,6 +162,9 @@ public class PlayerController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
+        if (canFire == false) { return; }
+        nextFire = rateOfFire;
+
         SoundManager.PlaySound("gunshot");
         ShakeCamera.Instance.Shake(2f, 0.05f);
 

@@ -15,8 +15,10 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && inventory)
+        //Debug.LogError("Checking if you can have a medkit");
+        if (collision.CompareTag("Player") && inventory)
         {
+            //Debug.LogError("YOU GOT A MEDKIT");
             for (int i = 0; i < inventory.slots.Length; i++)
             {
                 if(inventory.isFull[i] == false)
