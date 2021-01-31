@@ -1447,6 +1447,17 @@ MonoBehaviour:
   - {fileID: 995548847}
   - {fileID: 1923757246}
   GameManager: {fileID: 474759995}
+  symbolArray:
+  - {fileID: 21300000, guid: 967cb4c359e1b664fb2f81bd74f9e671, type: 3}
+  - {fileID: 21300000, guid: 5faef4e856c51264f8d13d3da74750e9, type: 3}
+  - {fileID: 21300000, guid: 35b67131a0bd8e441af40e5bb1a5c837, type: 3}
+  - {fileID: 21300000, guid: f617e6698f4b6ab47b5c25061783895b, type: 3}
+  - {fileID: 21300000, guid: 7536e7e3802bb604dad0acea0959cdb8, type: 3}
+  - {fileID: 21300000, guid: 3377f8d9100d9da4baceb9db4d97acfe, type: 3}
+  - {fileID: 21300000, guid: 09101f042d83a9942bf2e7ccc684879c, type: 3}
+  - {fileID: 21300000, guid: 79ac738b1f64c944d83deef66e6f1130, type: 3}
+  - {fileID: 21300000, guid: eeca1c64bfb45524e9637f7650d715a7, type: 3}
+  - {fileID: 21300000, guid: 3e516efe36e1d8e469ae063a85b80cfd, type: 3}
 --- !u!114 &930200521
 MonoBehaviour:
   m_ObjectHideFlags: 0

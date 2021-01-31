@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Bullet : MonoBehaviour
 {
@@ -27,5 +24,17 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        else if (collision.CompareTag("Enemy"))
+        {
+            KillEnemy(collision);
+            Destroy(gameObject);
+        }
+    }
+
+    public void KillEnemy(Collider2D collider)
+    {
+        //also do an animation here
+        Destroy(collider.gameObject.transform.parent.gameObject);
     }
 }

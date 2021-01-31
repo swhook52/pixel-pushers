@@ -11,13 +11,19 @@ public class DigitalDisplay : MonoBehaviour
     private Image[] characters;
     private string codeSequence;
     public Game GameManager;
+
+    [SerializeField]
+    private Sprite[] symbolArray;
+    private string password;
+    private int dividerPosition;
+    private string buttonName, buttonValue;
+
     // Start is called before the first frame update
     void Start()
     {
         codeSequence = "";
-        for (int i = 0; i < characters.Length - 1; i++) {
-            characters[i].sprite = digits[10];
-        }
+
+        SetPassword();
 
         KeypadButtonPush.ButtonPressed += AddDigitToCodeSequence;
     }
@@ -72,19 +78,13 @@ public class DigitalDisplay : MonoBehaviour
     private void DisplayCodeSequence(int digitEntered) {
         switch (codeSequence.Length) {
             case 1:
-                characters[0].sprite = digits[10];
-                characters[1].sprite = digits[10];
-                characters[2].sprite = digits[10];
                 characters[3].sprite = digits[digitEntered];
                 break;
             case 2:
-                characters[0].sprite = digits[10];
-                characters[1].sprite = digits[10];
                 characters[2].sprite = characters[3].sprite;
                 characters[3].sprite = digits[digitEntered];
                 break;
             case 3:
-                characters[0].sprite = digits[10];
                 characters[1].sprite = characters[2].sprite;
                 characters[2].sprite = characters[3].sprite;
                 characters[3].sprite = digits[digitEntered];
@@ -100,21 +100,32 @@ public class DigitalDisplay : MonoBehaviour
     }
 
     private void CheckResults() {
-        if (codeSequence == "8888") {
-            ResetDisplay();
+        if (codeSequence == password) {
             GameManager.GenerateMaze();
+            ResetDisplay();
         }
         else {
             ResetDisplay();
         }
     }
 
-    private void ResetDisplay() {
-        for (int i = 0; i <= characters.Length - 1; i++) {
-            characters[i].sprite = digits[10];
-        }
+    private void SetPassword() {
+        for (int i=0; i<4; i++) {
+            int rand = Random.Range(0, 9);
+            buttonName = symbolArray[rand].name;
+            dividerPosition = buttonName.IndexOf('_');
+            buttonValue = buttonName.Substring(0, dividerPosition);
 
+            characters[i].sprite = symbolArray[rand];
+            password += rand;
+        }
+        Debug.Log(password);
+    }
+
+    private void ResetDisplay() {
         codeSequence = "";
+        password = "";
+        SetPassword();
     }
 
     private void OnDestroy() {

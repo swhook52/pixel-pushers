@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public float speed;
+    public float speed = 0.2f;
     public float stoppingDistance;
     public Transform target;
 
@@ -20,7 +18,7 @@ public class EnemyFollow : MonoBehaviour
             return;
         }
 
-        if(Vector2.Distance(transform.position, target.position) > stoppingDistance)
+        if (Vector2.Distance(transform.position, target.position) > stoppingDistance)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }
@@ -28,10 +26,8 @@ public class EnemyFollow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("I hit something");
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("I see you");
             target = collision.transform;
         }
     }
@@ -40,7 +36,6 @@ public class EnemyFollow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("I do not see you");
             target = null;
         }
     }
