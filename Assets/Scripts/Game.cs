@@ -12,6 +12,8 @@ public class Game : MonoBehaviour
     public Transform Player;
     public Transform Goal;
     public Transform Enemy;
+    public Transform Weapon;
+    public Transform Health;
     public GameObject Floor, Wall;
     public CinemachineVirtualCamera cam;
     Animator anim;
@@ -170,6 +172,26 @@ public class Game : MonoBehaviour
             var newNme = Instantiate(Enemy, nmeV3, Quaternion.identity, Level);
             avoids.Add(newNme.transform);
             numOfEnemies--;
+        }
+    }
+
+    void AddWeapon(List<Transform> avoids)
+    {
+        if(lvlCount == 1)
+        {
+            var nmeV3 = getRandPosition(avoids);
+            var newNme = Instantiate(Weapon, nmeV3, Quaternion.identity, Level);
+            avoids.Add(newNme.transform);
+        }
+    }
+
+    void AddHealth(List<Transform> avoids)
+    {
+        if (lvlCount == 1)
+        {
+            var nmeV3 = getRandPosition(avoids);
+            var newNme = Instantiate(Health, nmeV3, Quaternion.identity, Level);
+            avoids.Add(newNme.transform);
         }
     }
 
