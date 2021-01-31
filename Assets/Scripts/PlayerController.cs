@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public int startingHealth = 25;
     public int currentHealth = 25;
     //public Animator playerAnimator;
+    public bool IsMoving = false;
 
     void Awake()
     {
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         controls = new Player1Controls();
         controls.Player.Look.performed += Aim;
         controls.Player.Fire.performed += Fire;
+        controls.Player.Move.canceled += StopMoving;
     }
 
     void Start()
@@ -71,6 +73,12 @@ public class PlayerController : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementY = movementVector.y;
+
+        if (!IsMoving)
+        {
+            SoundManager.PlaySound("footsteps");
+        }
+        IsMoving = true;
     }
 
     void FixedUpdate()
@@ -94,7 +102,8 @@ public class PlayerController : MonoBehaviour
         //UpdateCharacterAnimation(playerAnimator);
     }
 
-    void UpdateCharacterAnimation(Animator anim) {
+    void UpdateCharacterAnimation(Animator anim)
+    {
 
         // Update animation on key press
         anim.SetFloat("velocity", Math.Abs(rigidBody.velocity.x) + Math.Abs(rigidBody.velocity.y));
@@ -128,12 +137,19 @@ public class PlayerController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        SoundManager.PlaySound("pew");
+        SoundManager.PlaySound("gunshot");
+        ShakeCamera.Instance.Shake(2f, 0.05f);
 
         Vector2 direction = worldLookLocation - transform.position;
 
         GameObject go = Instantiate(bulletPrefab, GunTip.position, transform.rotation);
         go.GetComponent<Rigidbody2D>().velocity = direction * 3f;
         //playerAnimator.SetTrigger("attack");
+    }
+
+    private void StopMoving(InputAction.CallbackContext context)
+    {
+        IsMoving = false;
+        SoundManager.StopSound();
     }
 }

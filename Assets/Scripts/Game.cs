@@ -70,6 +70,7 @@ public class Game : MonoBehaviour
         Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
 
         AddEnemies();
+        fixZPositions();
     }
 
     void Awake() {
@@ -125,23 +126,19 @@ public class Game : MonoBehaviour
         //}
     }
 
-    /*void fixZPositions()
+    void fixZPositions()
     {
         // force objects over floors
         foreach (Transform child in Level)
         {
             var tempPos = child.transform.position;
-            if (child.name.Contains("wall") || child.name.Contains("enemy"))
-            {
-                tempPos.z = -1;
-            }
             if (child.name.Contains("floor"))
             {
-                tempPos.z = 0;
+                tempPos.z = 1;
             }
             child.transform.position = tempPos;
         }
-    }*/
+    }
 
     void AddEnemies()
     {
