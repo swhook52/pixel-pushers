@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
     public void RemoveHealth(int damage) {
         if (currentHealth > 0) {
             currentHealth -= damage;
-            Debug.Log(currentHealth);
         }
     }
 
