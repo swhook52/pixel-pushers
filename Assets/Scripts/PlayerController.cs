@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Transform GunTip;
     public Game GameManager;
     public GameObject bulletPrefab;
+    //public Animator playerAnimator;
 
     void Awake()
     {
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        //playerAnimator = GetComponent<Animator>();
+
         //laserLineRenderer = GetComponent<LineRenderer>();
         //laserLineRenderer.startWidth = AimWidth;
         //laserLineRenderer.endWidth = AimWidth;
@@ -84,6 +87,18 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         var rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         transform.rotation = rotation;
+
+        //UpdateCharacterAnimation(playerAnimator);
+    }
+
+    void UpdateCharacterAnimation(Animator anim)
+    {
+
+        // Update animation on key press
+        anim.SetFloat("velocity", Math.Abs(rigidBody.velocity.x) + Math.Abs(rigidBody.velocity.y));
+
+        anim.SetBool("hasFlashlight", false);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -98,8 +113,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if(GameManager != null)
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (GameManager != null)
         {
             if (other.CompareTag("Finish"))
             {
@@ -110,9 +126,13 @@ public class PlayerController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
+        SoundManager.PlaySound("gunshot");
+        ShakeCamera.Instance.Shake(2f, 0.05f);
+
         Vector2 direction = worldLookLocation - transform.position;
 
         GameObject go = Instantiate(bulletPrefab, GunTip.position, transform.rotation);
         go.GetComponent<Rigidbody2D>().velocity = direction * 3f;
+        //playerAnimator.SetTrigger("attack");
     }
 }
