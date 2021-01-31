@@ -98,8 +98,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if(GameManager != null)
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (GameManager != null)
         {
             if (other.CompareTag("Finish"))
             {
@@ -110,6 +111,8 @@ public class PlayerController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
+        SoundManager.PlaySound("pew");
+
         Vector2 direction = worldLookLocation - transform.position;
 
         GameObject go = Instantiate(bulletPrefab, GunTip.position, transform.rotation);
