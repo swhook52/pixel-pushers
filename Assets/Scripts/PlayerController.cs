@@ -21,12 +21,10 @@ public class PlayerController : MonoBehaviour
     public Transform GunTip;
     public Game GameManager;
     public GameObject bulletPrefab;
-    public int startingHealth = 25;
-    public int currentHealth = 25;
+    //public Animator playerAnimator;
 
     void Awake()
     {
-        currentHealth = startingHealth;
         controls = new Player1Controls();
         controls.Player.Look.performed += Aim;
         controls.Player.Fire.performed += Fire;
@@ -35,6 +33,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        //playerAnimator = GetComponent<Animator>();
+
         //laserLineRenderer = GetComponent<LineRenderer>();
         //laserLineRenderer.startWidth = AimWidth;
         //laserLineRenderer.endWidth = AimWidth;
@@ -46,9 +46,8 @@ public class PlayerController : MonoBehaviour
         worldLookLocation = Camera.main.ScreenToWorldPoint(lookInput);
 
         Vector2 direction = worldLookLocation - transform.position;
-        var ray = new Ray2D(this.transform.position, direction);
 
-        RaycastHit2D raycastHit = Physics2D.Raycast(GunTip.position, direction, Mathf.Infinity);
+        RaycastHit2D raycastHit = Physics2D.Raycast(GunTip.position, direction, Mathf.Infinity, LayerMask.GetMask("Wall"));
         if (raycastHit.rigidbody != null)
         {
             worldLookLocation = new Vector3(raycastHit.point.x, raycastHit.point.y, 0);
@@ -88,6 +87,17 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         var rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         transform.rotation = rotation;
+
+        //UpdateCharacterAnimation(playerAnimator);
+    }
+
+    void UpdateCharacterAnimation(Animator anim) {
+
+        // Update animation on key press
+        anim.SetFloat("velocity", Math.Abs(rigidBody.velocity.x) + Math.Abs(rigidBody.velocity.y));
+
+        anim.SetBool("hasFlashlight", false);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -102,8 +112,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if(GameManager != null)
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (GameManager != null)
         {
             if (other.CompareTag("Finish"))
             {
@@ -114,9 +125,12 @@ public class PlayerController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
+        SoundManager.PlaySound("pew");
+
         Vector2 direction = worldLookLocation - transform.position;
 
         GameObject go = Instantiate(bulletPrefab, GunTip.position, transform.rotation);
         go.GetComponent<Rigidbody2D>().velocity = direction * 3f;
+        //playerAnimator.SetTrigger("attack");
     }
 }

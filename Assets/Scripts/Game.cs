@@ -70,7 +70,6 @@ public class Game : MonoBehaviour
         Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
 
         AddEnemies();
-        fixZPositions();
     }
 
     void Awake() {
@@ -120,29 +119,13 @@ public class Game : MonoBehaviour
         //    }
         //}
 
-        //UpdateCharacterAnimation(Player.GetComponent<Animator>());
-
         //Player.position = Vector3.Lerp(Player.position, new Vector3(x, y), Time.deltaTime * 12);
         //if (Vector3.Distance(Player.position, Goal.position) < 0.12f && Input.GetKeyDown(KeyCode.F))
         //{
         //}
     }
 
-    //void UpdateCharacterAnimation(Animator anim) {
-
-    //    //flip char horizontal if left/right direction
-    //    Vector3 tempScale = Player.transform.localScale;
-    //    if(Input.GetKeyDown(KeyCode.A)){ tempScale.x = -1; }
-    //    if(Input.GetKeyDown(KeyCode.D)){ tempScale.x = 1; }
-    //    Player.transform.localScale = tempScale;
-
-    //    //Update animation on key press
-    //    anim.SetBool("isWalking", (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)));
-    //    anim.SetBool("isShooting", Input.GetKey(KeyCode.Mouse0));
-
-    //}
-
-    void fixZPositions()
+    /*void fixZPositions()
     {
         // force objects over floors
         foreach (Transform child in Level)
@@ -158,7 +141,7 @@ public class Game : MonoBehaviour
             }
             child.transform.position = tempPos;
         }
-    }
+    }*/
 
     void AddEnemies()
     {
@@ -168,54 +151,70 @@ public class Game : MonoBehaviour
         List<Transform> avoids = new List<Transform> { Player, Goal };
         while (numOfEnemies > 0)
         {
-            var nmeV3 = getRandPosition(avoids);
+            var nmeV3 = getRandPosition(avoids, 1);
             var newNme = Instantiate(Enemy, nmeV3, Quaternion.identity, Level);
             avoids.Add(newNme.transform);
             numOfEnemies--;
         }
+        AddWeapon(avoids);
     }
 
     void AddWeapon(List<Transform> avoids)
     {
-        if(lvlCount == 1)
-        {
-            var nmeV3 = getRandPosition(avoids);
-            var newNme = Instantiate(Weapon, nmeV3, Quaternion.identity, Level);
-            avoids.Add(newNme.transform);
+        if(lvlCount == 1){
+            var weaponV3 = getRandPosition(avoids);
+            var newWeapon = Instantiate(Weapon, weaponV3, Quaternion.identity, Level);
+            avoids.Add(newWeapon.transform);
         }
+        AddHealth(avoids);
     }
 
     void AddHealth(List<Transform> avoids)
     {
-        if (lvlCount == 1)
-        {
-            var nmeV3 = getRandPosition(avoids);
-            var newNme = Instantiate(Health, nmeV3, Quaternion.identity, Level);
-            avoids.Add(newNme.transform);
+        var numOfHealth = 0;
+
+        if(lvlCount > 4){
+            numOfHealth = Random.Range(0, 1);
         }
+
+        if(lvlCount > 9){
+            numOfHealth = Random.Range(0, 2);
+        }
+
+        if(lvlCount > 11){
+            numOfHealth = Random.Range(0, 3);
+        }
+
+        for (int i = 0; i <= numOfHealth; i++)
+        {
+            var healthV3 = getRandPosition(avoids);
+            var newHealth = Instantiate(Health, healthV3, Quaternion.identity, Level);
+        }
+
     }
 
-    Vector3 getRandPosition(List<Transform> avoidObjects)
+    Vector3 getRandPosition(List<Transform> avoidObjects, int variance = 0)
     {
 
         var randX = 0;
         var randY = 0;
+        var killswitch = 1000; // max spawn search attempts
 
         do
         {
             randX = Random.Range(0, w);
             randY = Random.Range(0, h);
-        } while (!canSpawn(randX, randY, avoidObjects));
+            killswitch--;
+        } while (!canSpawn(randX, randY, avoidObjects, variance) && killswitch > 0);
 
-        return new Vector3(randX, randY);
+        return killswitch > 0 ? new Vector3(randX, randY) : new Vector3(1, 1); //if no spawn in available, spawn at 1x1
 
     }
 
-    bool canSpawn(int testX, int testY, List<Transform> avoidObjects)
+    bool canSpawn(int testX, int testY, List<Transform> avoidObjects, int variance)
     {
 
         bool canSpawn = true;
-        int variance = 1;
 
         foreach (var item in avoidObjects)
         {
