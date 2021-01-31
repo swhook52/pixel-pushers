@@ -69,7 +69,11 @@ public class Game : MonoBehaviour
         y = Random.Range(0, h);
         Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
 
-        AddEnemies();
+        // Spawn item and return their spawn location, 'avoids' spawn overlap
+        List<Transform> avoids = AddEnemies();
+                     // avoids = AddWeapon(avoids);
+                        avoids = AddHealth(avoids);
+
         fixZPositions();
     }
 
@@ -140,7 +144,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    void AddEnemies()
+    List<Transform> AddEnemies()
     {
         var nmeMin = lvlCount / 5 > 1 ? lvlCount / 5 : 1;
         var nmeMax = (h * w) / 4;
@@ -153,20 +157,20 @@ public class Game : MonoBehaviour
             avoids.Add(newNme.transform);
             numOfEnemies--;
         }
-        AddWeapon(avoids);
+        return avoids;
     }
 
-    void AddWeapon(List<Transform> avoids)
+    List<Transform> AddWeapon(List<Transform> avoids)
     {
         if(lvlCount == 1){
             var weaponV3 = getRandPosition(avoids);
             var newWeapon = Instantiate(Weapon, weaponV3, Quaternion.identity, Level);
             avoids.Add(newWeapon.transform);
         }
-        AddHealth(avoids);
+        return avoids;
     }
 
-    void AddHealth(List<Transform> avoids)
+    List<Transform> AddHealth(List<Transform> avoids)
     {
         var numOfHealth = 0;
 
@@ -186,8 +190,10 @@ public class Game : MonoBehaviour
         {
             var healthV3 = getRandPosition(avoids);
             var newHealth = Instantiate(Health, healthV3, Quaternion.identity, Level);
+            avoids.Add(newHealth.transform);
         }
 
+        return avoids;
     }
 
     Vector3 getRandPosition(List<Transform> avoidObjects, int variance = 0)

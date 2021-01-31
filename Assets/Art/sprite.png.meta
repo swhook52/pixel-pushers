@@ -22,10 +22,10 @@ TextureImporter:
     second: wall
   - first:
       213: -6330212380425479180
-    second: player1
+    second: health_bg
   - first:
       213: -3087928711210884387
-    second: player2
+    second: health
   - first:
       213: -4141618006047545035
     second: player3
@@ -260,6 +260,48 @@ TextureImporter:
       bones: []
       spriteID: c6a80bf6a8ed3a760800000000000000
       internalID: 7468057293271108204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: health_bg
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 119
+        width: 836
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fb95fff0619628a0800000000000000
+      internalID: -6330212380425479180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: health
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 15
+        width: 773
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd2ab8c92397525d0800000000000000
+      internalID: -3087928711210884387
       vertices: []
       indices: 
       edges: []
