@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public int startingHealth = 25;
     public int currentHealth = 25;
-    //public Animator playerAnimator;
+    public Animator playerAnimator;
     public bool IsMoving = false;
 
     void Awake()
@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        //playerAnimator = GetComponent<Animator>();
 
         //laserLineRenderer = GetComponent<LineRenderer>();
         //laserLineRenderer.startWidth = AimWidth;
@@ -105,9 +104,8 @@ public class PlayerController : MonoBehaviour
 
         if(gunLight) { gunLight.pointLightOuterRadius = gunLightRange; }
 
-       // Debug.Log(gunLight);
 
-        //UpdateCharacterAnimation(playerAnimator);
+        UpdateCharacterAnimation(playerAnimator);
     }
 
     void UpdateCharacterAnimation(Animator anim)
@@ -152,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
         GameObject go = Instantiate(bulletPrefab, GunTip.position, transform.rotation);
         go.GetComponent<Rigidbody2D>().velocity = direction * 3f;
-        //playerAnimator.SetTrigger("attack");
+        playerAnimator.SetTrigger("attack");
     }
 
     private void StopMoving(InputAction.CallbackContext context)

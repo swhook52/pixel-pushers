@@ -217,7 +217,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: efa4759c3949765418fb99a7c84f3bfd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 151ac2741c0cd7946b86992f3134c45c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -287,7 +287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081277867902361960}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: -0.7071068}
-  m_LocalPosition: {x: -0.32, y: 2.14, z: 0}
+  m_LocalPosition: {x: 2.05, y: 1.5, z: 0}
   m_LocalScale: {x: 2.564102, y: 3.8461533, z: 1}
   m_Children:
   - {fileID: 359405285}
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bb91c5d897a994f92e4786d7dc2b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 1.5
   maxVelocity: 10
   AimWidth: 0.1
   AimLength: 20
@@ -434,6 +434,10 @@ MonoBehaviour:
   GameManager: {fileID: 0}
   gunLight: {fileID: 359405286}
   bulletPrefab: {fileID: 3764538273728285838, guid: 0aa4d62fa8e191147bea73b7a8585866, type: 3}
+  startingHealth: 25
+  currentHealth: 20
+  playerAnimator: {fileID: 1068267958}
+  IsMoving: 0
 --- !u!114 &3942734999200776447
 MonoBehaviour:
   m_ObjectHideFlags: 0
