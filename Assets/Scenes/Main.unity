@@ -2075,6 +2075,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2081277867553205702, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 151ac2741c0cd7946b86992f3134c45c, type: 3}
+    - target: {fileID: 2081277867902361961, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2081277867902361961, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2081277869179744514, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
       propertyPath: GameManager
       value: 
