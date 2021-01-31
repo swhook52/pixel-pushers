@@ -46,8 +46,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.588
-  m_Color: {r: 0.9806428, g: 1, b: 0.5245283, a: 1}
-  m_Intensity: 2.64
+  m_Color: {r: 1, g: 0.88485503, b: 0.6556604, a: 1}
+  m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000eb1539b7
   m_LightCookieSprite: {fileID: 21300000, guid: 9d053fc5726b5cb44a3bee6a1b2a7ea5, type: 3}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 27.49
   m_PointLightOuterAngle: 77.24
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 8.669
+  m_PointLightOuterRadius: 1
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -117,9 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.593
+  m_FalloffIntensity: 0.853
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.7
+  m_Intensity: 0.5
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1.5821201
+  m_PointLightOuterRadius: 1
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -155,9 +155,10 @@ GameObject:
   - component: {fileID: 2081277867553205697}
   - component: {fileID: 2081277867553205702}
   - component: {fileID: 7260424221794896494}
+  - component: {fileID: 1068267958}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -243,6 +244,25 @@ CircleCollider2D:
   m_Offset: {x: -0.41870788, y: 0.042580366}
   serializedVersion: 2
   m_Radius: 0.7769376
+--- !u!95 &1068267958
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081277867553205696}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b54c6278db32d8545bc8d915077ac3a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2081277867902361960
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +432,7 @@ MonoBehaviour:
   WallTag: Wall
   GunTip: {fileID: 2081277867902361961}
   GameManager: {fileID: 0}
+  gunLight: {fileID: 359405286}
   bulletPrefab: {fileID: 3764538273728285838, guid: 0aa4d62fa8e191147bea73b7a8585866, type: 3}
 --- !u!114 &3942734999200776447
 MonoBehaviour:

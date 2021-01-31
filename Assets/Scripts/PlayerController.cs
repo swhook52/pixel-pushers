@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public string WallTag = "Wall";
     public Transform GunTip;
     public Game GameManager;
+    public Light2D gunLight;
     public GameObject bulletPrefab;
     //public Animator playerAnimator;
 
@@ -87,6 +89,12 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         var rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         transform.rotation = rotation;
+
+        float gunLightRange = Vector2.Distance(rigidBody.position, worldLookLocation);
+
+        if(gunLight) { gunLight.pointLightOuterRadius = gunLightRange; }
+
+       // Debug.Log(gunLight);
 
         //UpdateCharacterAnimation(playerAnimator);
     }

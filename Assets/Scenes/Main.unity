@@ -1668,30 +1668,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336b48b222d5b4945905724001c82fc5, type: 3}
---- !u!1 &1068267954 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2081277867553205696, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
-  m_PrefabInstance: {fileID: 1349313160}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1068267958
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068267954}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b54c6278db32d8545bc8d915077ac3a0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1075362601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,10 +2047,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2081277867553205696, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 2081277869179744514, guid: 2f8d596a617b51d4bb802791967162bf, type: 3}
       propertyPath: GameManager
       value: 
