@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     public static AudioClip llamaSound;
     public static AudioClip pewSound;
     public static AudioClip hergSound;
+    public static AudioClip regularGunshotSound;
 
     static AudioSource audioSource;
 
@@ -20,6 +21,7 @@ public class SoundManager : MonoBehaviour
         enemyDeathSound = Resources.Load<AudioClip>("blahDeath");
         powSound = Resources.Load<AudioClip>("pow");
         hergSound = Resources.Load<AudioClip>("herg");
+        regularGunshotSound = Resources.Load<AudioClip>("gunshot");
 
         audioSource = GetComponent<AudioSource>();
     }
@@ -44,6 +46,9 @@ public class SoundManager : MonoBehaviour
                 break;
             case "death":
                 audioSource.PlayOneShot(enemyDeathSound);
+                break;
+            case "gunshot":
+                audioSource.PlayOneShot(regularGunshotSound);
                 break;
             default:
                 audioSource.PlayOneShot(hergSound);
