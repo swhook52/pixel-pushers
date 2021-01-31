@@ -7,9 +7,9 @@
         {
             "name": "Unity Editor",
             "type": "unity",
-            "path": "/c:/Users/andre/Desktop/GGJ2021/Repo/pixel-pushers/Library/EditorInstance.json",
+            "path": "/c:/pixel-pushers/Library/EditorInstance.json",
             "request": "launch"
-        },
+        }/*,
         {
             "name": "Windows Player",
             "type": "unity",
@@ -49,6 +49,6 @@
             "name": "SwitchPlayer",
             "type": "unity",
             "request": "launch"
-        }
+        }*/
     ]
 }
