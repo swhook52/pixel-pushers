@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lookInput;
     public float AimWidth = 0.1f;
     public float AimLength = 20f;
-    private LineRenderer laserLineRenderer;
+    //private LineRenderer laserLineRenderer;
     private Vector3 worldLookLocation;
     public string WallTag = "Wall";
     public Transform GunTip;
@@ -32,9 +32,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        laserLineRenderer = GetComponent<LineRenderer>();
-        laserLineRenderer.startWidth = AimWidth;
-        laserLineRenderer.endWidth = AimWidth;
+        //laserLineRenderer = GetComponent<LineRenderer>();
+        //laserLineRenderer.startWidth = AimWidth;
+        //laserLineRenderer.endWidth = AimWidth;
     }
 
     private void Aim(InputAction.CallbackContext context)
@@ -77,8 +77,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // Aim Sight
-        laserLineRenderer.SetPosition(0, GunTip.position);
-        laserLineRenderer.SetPosition(1, new Vector3(worldLookLocation.x, worldLookLocation.y, 0));
+        //laserLineRenderer.SetPosition(0, GunTip.position);
+        //laserLineRenderer.SetPosition(1, new Vector3(worldLookLocation.x, worldLookLocation.y, 0));
 
         // Handle Rotation
         Vector2 direction = worldLookLocation - transform.position;
@@ -91,15 +91,21 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager != null)
         {
-            //Launch keypad
-            GameManager.DisplayKeypad();
+            if (collision.CompareTag("Finish"))
+            {
+                //Launch keypad
+                GameManager.DisplayKeypad();
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if(GameManager != null)
         {
-            GameManager.RemoveKeypad();
+            if (other.CompareTag("Finish"))
+            {
+                GameManager.RemoveKeypad();
+            }
         }
     }
 
@@ -108,6 +114,6 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = worldLookLocation - transform.position;
 
         GameObject go = Instantiate(bulletPrefab, GunTip.position, transform.rotation);
-        go.GetComponent<Rigidbody2D>().velocity = direction * 2;
+        go.GetComponent<Rigidbody2D>().velocity = direction * 3f;
     }
 }
