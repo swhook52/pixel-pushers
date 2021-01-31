@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
     private void Fire(InputAction.CallbackContext context)
     {
         SoundManager.PlaySound("pew");
+        ShakeCamera.Instance.Shake(2f, 0.05f);
 
         Vector2 direction = worldLookLocation - transform.position;
 
