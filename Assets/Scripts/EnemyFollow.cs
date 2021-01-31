@@ -7,6 +7,7 @@ public class EnemyFollow : MonoBehaviour
     public float stoppingDistance;
     public Transform target;
     Animator anim;
+    bool attack;
 
     // Start is called before the first frame update
     void Start()
@@ -18,13 +19,11 @@ public class EnemyFollow : MonoBehaviour
     {
         if (target == null)
         {
-            anim.SetBool("isWalking", false);
             return;
         }
 
         if (Vector2.Distance(transform.position, target.position) > stoppingDistance)
         {
-            anim.SetBool("isWalking", true);
             var direction = target.position - transform.position;
             var angle = Mathf.Atan2(direction.y, direction.x)*Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -36,15 +35,19 @@ public class EnemyFollow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("enemy follow enter");
+            anim.SetBool("isWalking", true);
             target = collision.transform;
-        }        
+        }       
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            target = null;
-        }
+            Debug.Log("enemy follow exit");
+            // target = null;
+            // anim.SetBool("isWalking", false);
+        }  
     }
 }
