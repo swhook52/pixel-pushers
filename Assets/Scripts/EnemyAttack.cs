@@ -17,7 +17,6 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         if(attack) {
-            Debug.Log("ATTACK");
             anim.SetTrigger("hit");
         }
     }
@@ -27,8 +26,6 @@ public class EnemyAttack : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             attack = true;
-            Debug.Log("attack In range");
-            // anim.SetBool("isWalking", false);
         }  
     }
 
@@ -37,7 +34,6 @@ public class EnemyAttack : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             attack = false;
-            Debug.Log("attack out of range");
             anim.SetBool("isWalking", true);
         }  
     }

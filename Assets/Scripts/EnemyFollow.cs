@@ -35,7 +35,6 @@ public class EnemyFollow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("enemy follow enter");
             anim.SetBool("isWalking", true);
             target = collision.transform;
         }       
@@ -45,7 +44,6 @@ public class EnemyFollow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("enemy follow exit");
             // target = null;
             // anim.SetBool("isWalking", false);
         }  
