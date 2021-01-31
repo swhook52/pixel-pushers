@@ -25,6 +25,9 @@ public class EnemyFollow : MonoBehaviour
         if (Vector2.Distance(transform.position, target.position) > stoppingDistance)
         {
             anim.SetBool("isWalking", true);
+            var direction = target.position - transform.position;
+            var angle = Mathf.Atan2(direction.y, direction.x)*Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         }
     }
