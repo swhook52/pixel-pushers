@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public static Game Instance { get; private set; }
     public float holep;
     public int w, h, x, y, lvlCount;
     public bool[,] hwalls, vwalls;
@@ -18,6 +19,7 @@ public class Game : MonoBehaviour
     public CinemachineVirtualCamera cam;
     Animator anim;
     private PanelScript keypad;
+    public PlayerController playerController;
 
     void Start()
     {
@@ -78,6 +80,7 @@ public class Game : MonoBehaviour
     }
 
     void Awake() {
+        Instance = this;
         keypad = GetComponent<PanelScript>();
         keypad.SetInactive();
     }
@@ -194,6 +197,10 @@ public class Game : MonoBehaviour
         }
 
         return avoids;
+    }
+
+    public void RemoveHealth(int dmg) {
+        playerController.RemoveHealth(dmg);
     }
 
     Vector3 getRandPosition(List<Transform> avoidObjects, int variance = 0)
