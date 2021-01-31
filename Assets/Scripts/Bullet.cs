@@ -48,6 +48,6 @@ public class Bullet : MonoBehaviour
     public void KillEnemy(Collider2D collider)
     {
         //also do an animation here
-        Destroy(collider.gameObject);
+        Destroy(collider.gameObject.transform.parent.gameObject);
     }
 }
