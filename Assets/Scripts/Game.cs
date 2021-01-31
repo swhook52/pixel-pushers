@@ -20,6 +20,7 @@ public class Game : MonoBehaviour
     Animator anim;
     private PanelScript keypad;
     public PlayerController playerController;
+    public GameObject GameOverPanel;
 
     void Start()
     {
@@ -83,6 +84,14 @@ public class Game : MonoBehaviour
         Instance = this;
         keypad = GetComponent<PanelScript>();
         keypad.SetInactive();
+    }
+
+    public void restartMase() {
+        w = 6;
+        h = 6;
+        playerController.currentHealth = 25;
+        GenerateMaze();
+        GameOverPanel.SetActive(false);
     }
 
     public void GenerateMaze()

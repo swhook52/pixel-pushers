@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public int currentHealth = 25;
     public Animator playerAnimator;
     public bool IsMoving = false;
+    public GameObject Panel;
 
     void Awake()
     {
@@ -47,9 +48,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public void RemoveHealth(int damage) {
-        if (currentHealth > 0) {
+        if (currentHealth > 0 && damage > 0) {
             currentHealth -= damage;
             Debug.Log(currentHealth);
+        }
+        if (currentHealth <= 0) {
+            Panel.SetActive(true);
+            // Time.timeScale = 0;
         }
     }
 
@@ -87,6 +92,10 @@ public class PlayerController : MonoBehaviour
             SoundManager.PlaySound("footsteps");
         }
         IsMoving = true;
+    }
+    
+    void Update() {
+      
     }
 
     void FixedUpdate()
