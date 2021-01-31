@@ -67,12 +67,14 @@ public class Game : MonoBehaviour
 
         x = Random.Range(0, w);
         y = Random.Range(0, h);
-        Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
 
         // Spawn item and return their spawn location, 'avoids' spawn overlap
         List<Transform> avoids = AddEnemies();
                      // avoids = AddWeapon(avoids);
                         avoids = AddHealth(avoids);
+
+        var randGoalPos = getRandPosition(avoids);
+        Goal.position = (randGoalPos == Vector3.zero) ? new Vector3(1, 1) : randGoalPos;
 
         fixZPositions();
     }
@@ -113,21 +115,7 @@ public class Game : MonoBehaviour
             (x, y - 1, vwalls, x, y, Vector3.up, 0, KeyCode.S),
             (x, y + 1, vwalls, x, y + 1, Vector3.up, 0, KeyCode.W),
         };
-        //var rand = Random.value;
-        //foreach (var (nx, ny, wall, wx, wy, sh, ang, k) in dirs.OrderBy(d => rand)){
-        //    if (Input.GetKeyDown(k)){
-        //        if (wall[wx, wy]){
-        //            //Player.position = Vector3.Lerp(Player.position, new Vector3(nx, ny), 0.1f);
-        //        } else {
-        //            (x, y) = (nx, ny);
-        //        }
-        //    }
-        //}
 
-        //Player.position = Vector3.Lerp(Player.position, new Vector3(x, y), Time.deltaTime * 12);
-        //if (Vector3.Distance(Player.position, Goal.position) < 0.12f && Input.GetKeyDown(KeyCode.F))
-        //{
-        //}
     }
 
     void fixZPositions()
@@ -146,15 +134,26 @@ public class Game : MonoBehaviour
 
     List<Transform> AddEnemies()
     {
-        var nmeMin = lvlCount / 5 > 1 ? lvlCount / 5 : 1;
-        var nmeMax = (h * w) / 4;
-        var numOfEnemies = Random.Range(nmeMin, nmeMax);
+        var numOfEnemies = 0;
+        if(lvlCount <= 6){
+            numOfEnemies = Random.Range(2, 7);
+        }
+
+        if(lvlCount > 6){
+            numOfEnemies = Random.Range(7, 12);
+        }
+
+        if(lvlCount > 9){
+            numOfEnemies = Random.Range(12, 17);
+        }
         List<Transform> avoids = new List<Transform> { Player, Goal };
         while (numOfEnemies > 0)
         {
             var nmeV3 = getRandPosition(avoids, 1);
-            var newNme = Instantiate(Enemy, nmeV3, Quaternion.identity, Level);
-            avoids.Add(newNme.transform);
+            if(nmeV3 != Vector3.zero){
+                var newNme = Instantiate(Enemy, nmeV3, Quaternion.identity, Level);
+                avoids.Add(newNme.transform);
+            }
             numOfEnemies--;
         }
         return avoids;
@@ -174,23 +173,26 @@ public class Game : MonoBehaviour
     {
         var numOfHealth = 0;
 
-        if(lvlCount > 4){
+        if(lvlCount <= 5){
             numOfHealth = Random.Range(0, 1);
         }
 
-        if(lvlCount > 9){
+        if(lvlCount > 5){
             numOfHealth = Random.Range(0, 2);
         }
 
-        if(lvlCount > 11){
+        if(lvlCount > 10){
             numOfHealth = Random.Range(0, 3);
         }
 
         for (int i = 0; i <= numOfHealth; i++)
         {
             var healthV3 = getRandPosition(avoids);
-            var newHealth = Instantiate(Health, healthV3, Quaternion.identity, Level);
-            avoids.Add(newHealth.transform);
+            if(healthV3 != Vector3.zero){
+                var newHealth = Instantiate(Health, healthV3, Quaternion.identity, Level);
+                avoids.Add(newHealth.transform);
+            }
+            
         }
 
         return avoids;
@@ -210,7 +212,7 @@ public class Game : MonoBehaviour
             killswitch--;
         } while (!canSpawn(randX, randY, avoidObjects, variance) && killswitch > 0);
 
-        return killswitch > 0 ? new Vector3(randX, randY) : new Vector3(1, 1); //if no spawn in available, spawn at 1x1
+        return killswitch > 0 ? new Vector3(randX, randY) : Vector3.zero; //if no spawn in available, don't spawn
 
     }
 
