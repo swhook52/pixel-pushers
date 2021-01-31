@@ -4,18 +4,37 @@ using UnityEngine;
 
 public class UseMedkit : MonoBehaviour
 {
+    public GameObject item;
     private PlayerController playerController;
-    public int medkit = 15;
+    private PlayerInventory inventory;
+    public int medkitHealing = 15;
 
-    public void Use()
+    void Start()
     {
-        if (playerController.currentHealth >= (playerController.startingHealth - medkit))
+        playerController = FindObjectOfType(typeof(PlayerController)) as PlayerController;
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>();
+    }
+
+    public void DestroyItem()
+    {
+        foreach(Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    public void Heal()
+    {
+        if (playerController.currentHealth != playerController.startingHealth && playerController.currentHealth >= (playerController.startingHealth - medkitHealing))
         {
             playerController.currentHealth = playerController.startingHealth;
+            DestroyItem();
         }
         else
         {
-            playerController.currentHealth += medkit;
+            playerController.currentHealth += medkitHealing;
+            DestroyItem();
         }
+        
     }
 }

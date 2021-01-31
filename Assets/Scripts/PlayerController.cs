@@ -21,10 +21,13 @@ public class PlayerController : MonoBehaviour
     public Transform GunTip;
     public Game GameManager;
     public GameObject bulletPrefab;
+    public int startingHealth = 25;
+    public int currentHealth = 25;
     //public Animator playerAnimator;
 
     void Awake()
     {
+        currentHealth = startingHealth;
         controls = new Player1Controls();
         controls.Player.Look.performed += Aim;
         controls.Player.Fire.performed += Fire;
